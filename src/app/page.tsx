@@ -1,4 +1,4 @@
-import { getProducts } from "./lib/actions";
+import { getProducts } from "../lib/actions";
 
 import { createClient } from "./utils/supabase/server";
 

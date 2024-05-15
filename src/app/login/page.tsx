@@ -8,12 +8,6 @@ export default function LoginPage() {
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
-  // an async function to handle login.
-  // 1. prevents default submission behaviour of resetting the page.
-  // 2. declares `formData` constant and give it a value that is captured from `FormData` constructor which takes the values from the form.
-  // 3. declares `response` constant which awaits a response from the login function with the formData.
-  // 4. in case of an error, declare a constant named `translatedError` which matches the error recieved from the response with the dictionary and sends the translated version.
-  // 5. in case of success, navigate the new logged in user to the homepage.
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);

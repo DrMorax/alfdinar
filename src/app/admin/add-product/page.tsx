@@ -40,13 +40,12 @@ export default function Page() {
   const handleAddProduct = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      // Convert quantity to a number before sending
       const productToSend = {
         ...product,
         quantity: Number(product.quantity),
       };
 
-      const response = await fetch("/api/addProduct", {
+      const response = await fetch("/api/add-product", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

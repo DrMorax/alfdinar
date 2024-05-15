@@ -1,5 +1,6 @@
+"use server";
 import { revalidatePath } from "next/cache";
-import sql from "../../../db";
+import sql from "../../db";
 
 export async function getTodos() {
   try {
@@ -36,12 +37,26 @@ export async function addProduct(
   imageurl: string
 ): Promise<void> {
   try {
-    const products = await sql`
+    const product = await sql`
       insert into products (title, description, category, quantity, imageUrl) 
       values (${title}, ${description}, ${category}, ${quantity}, ${imageurl});
     `;
   } catch (e) {
     console.log("Error adding product: ", e);
+    throw e;
+  }
+}
+
+export async function deleteProduct(id: any) {
+  try {
+    const product = await sql`
+      delete from products 
+      where id = ${id};
+    `;
+    revalidatePath("/admin");
+    return product;
+  } catch (e) {
+    console.log("Error deleting product: ", e);
     throw e;
   }
 }

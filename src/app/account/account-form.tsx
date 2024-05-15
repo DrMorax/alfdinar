@@ -33,7 +33,7 @@ export default function AccountForm({ user }: { user: User | null }) {
         setAvatarUrl(data.avatar_url);
       }
     } catch (error) {
-      alert("Error loading user data!");
+      // alert("Error loading user data!");
     } finally {
       setLoading(false);
     }
@@ -65,9 +65,9 @@ export default function AccountForm({ user }: { user: User | null }) {
         updated_at: new Date().toISOString(),
       });
       if (error) throw error;
-      alert("Profile updated!");
+      // alert("Profile updated!");
     } catch (error) {
-      alert("Error updating the data!");
+      // alert("Error updating the data!");
     } finally {
       setLoading(false);
     }
