@@ -10,11 +10,7 @@ export default async function Layout({
   const supabase = createClient();
   const { data, error } = await supabase.auth.getUser();
   if (!error && data.user?.aud === "admin") {
-    return (
-      <html lang="en">
-        <body>{children}</body>
-      </html>
-    );
+    return [children];
   } else {
     redirect("/");
   }

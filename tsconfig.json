@@ -21,6 +21,17 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/utils/supabase/middleware.ts", "src/app/utils/supabase/client.ts", "src/app/utils/supabase/server.ts", "src/app/middleware.ts", "src/app/login/actions.ts", "src/app/login/page.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/app/utils/supabase/middleware.ts",
+    "src/app/utils/supabase/client.ts",
+    "src/app/utils/supabase/server.ts",
+    "src/app/middleware.ts",
+    "src/app/auth/login/actions.ts",
+    "src/app/auth/login/page.tsx"
+  ],
   "exclude": ["node_modules"]
 }
