@@ -1,9 +1,5 @@
 "use client";
 import { createClient } from "@/app/utils/supabase/client";
-import { revalidatePath } from "next/cache";
-import Image from "next/image";
-import { redirect } from "next/navigation";
-import { useRouter } from "next/router";
 import React, { useState } from "react";
 
 export default function Page() {
@@ -121,7 +117,7 @@ export default function Page() {
           Upload Image
         </label>
         {product.imageurl ? (
-          <Image src={product.imageurl} alt="Image preview"></Image>
+          <img src={product.imageurl} alt="Image preview"></img>
         ) : null}
         <button type="submit">Add Product</button>
       </form>
