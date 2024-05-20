@@ -1,4 +1,5 @@
-import Image from "next/image";
+import { Button } from "../button";
+import DeleteProduct from "./delete-button";
 
 export const Products = (props: any) => {
   return (
@@ -13,7 +14,9 @@ export const Products = (props: any) => {
         </div>
         <h3 className="mt-4 text-sm text-gray-700">{props.title}</h3>
         <p className="mt-1 text-sm font-small text-gray-400">{props.date}</p>
-        <p className="mt-1 text-lg font-medium text-gray-900">{props.price}</p>
+        {props.admin ? (
+          <DeleteProduct id={props.id}>Delete</DeleteProduct>
+        ) : null}
       </a>
     </>
   );

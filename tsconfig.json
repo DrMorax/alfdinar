@@ -31,7 +31,8 @@
     "src/app/utils/supabase/server.ts",
     "src/app/middleware.ts",
     "src/app/auth/login/actions.ts",
-    "src/app/auth/login/page.tsx"
+    "src/app/auth/login/page.tsx",
+    "src/app/admin/loading.js"
   ],
   "exclude": ["node_modules"]
 }
