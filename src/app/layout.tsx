@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Noto_Kufi_Arabic } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/ui/navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 const noto = Noto_Kufi_Arabic({ subsets: ["arabic"] });
@@ -18,7 +19,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={noto.className}>{children}</body>
+      <body className={noto.className} style={{ marginTop: "5rem" }}>
+        <Navbar />
+        {children}
+      </body>
     </html>
   );
 }

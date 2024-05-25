@@ -15,9 +15,9 @@ export default async function Page() {
     <div>
       <h1>{user ? user : `You are not logged in`}</h1>
       <h1>Products List</h1>
-      <div className="bg-white">
-        <div className="px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-          <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+      <div className="bg-white" dir="rtl">
+        <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+          <div className="grid grid-cols-2 gap-x-2 gap-y-10 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xl:gap-x-8">
             {products?.map((product, idx) => {
               const formatedDate = new Date(
                 product.created_at

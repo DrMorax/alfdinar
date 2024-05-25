@@ -1,9 +1,9 @@
 "use client";
 import { deleteProduct } from "@/lib/actions";
 import { Button } from "../button";
-import { TrashIcon } from "@/assets/icons/trash";
+import { PencilIcon } from "@/assets/icons/pencil";
 
-export default function DeleteProduct(props: any) {
+export default function EditProduct(props: any) {
   const id = props.id;
   async function handleDelete() {
     try {
@@ -16,11 +16,11 @@ export default function DeleteProduct(props: any) {
   return (
     <>
       <Button
-        variant={"destructive"}
-        className="w-[50%]"
+        variant={"warning"}
+        className="w-[50%] flex-start"
         onClick={() => handleDelete()}
       >
-        <TrashIcon color="#ffffff" />
+        <PencilIcon color="#ffffff" />
       </Button>
     </>
   );
