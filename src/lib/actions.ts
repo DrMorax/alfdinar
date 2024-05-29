@@ -105,3 +105,15 @@ export async function deleteProduct(id: any) {
     throw e;
   }
 }
+
+export async function getProfile(id: string) {
+  try {
+    const user = sql`
+  select id, email
+  from auth.user
+  where id = '${id}'`;
+    return user;
+  } catch (e) {
+    console.error(`Error fetching user: ${e}`);
+  }
+}

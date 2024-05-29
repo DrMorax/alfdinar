@@ -74,6 +74,7 @@ export default function AccountForm({ user }: { user: User | null }) {
   }
 
   return (
+    // Make a random function to generate a random string
     <div className="form-widget">
       <div>
         <label htmlFor="email">Email</label>

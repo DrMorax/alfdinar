@@ -1,5 +1,6 @@
 // supabase/client.ts
 import { createBrowserClient } from "@supabase/ssr";
+import { revalidatePath } from "next/cache";
 
 export function createClient() {
   return createBrowserClient(
@@ -18,8 +19,8 @@ export async function getUserOnClient() {
   }
   if (data.user.aud === "admin") {
     user = "admin";
-    return user;
   } else {
     user = "authenticated";
   }
+  return user;
 }
