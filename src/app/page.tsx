@@ -2,6 +2,7 @@ import { Products } from "@/components/ui/dashboard/products";
 import { getProducts } from "../lib/actions";
 
 import { createClient } from "./utils/supabase/server";
+import { Button } from "@/components/ui/button";
 
 export default async function Page() {
   // const supabase = createClient();
@@ -31,6 +32,7 @@ export default async function Page() {
           </>
         );
       })}
+      <Button size="lg">Hello</Button>
     </div>
   );
 }

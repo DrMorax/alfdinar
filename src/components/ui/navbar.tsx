@@ -27,19 +27,19 @@ export default function Navbar() {
       ref: "الصفحة الرئيسية",
       href: "/",
       className:
-        "p-3 text-sm text-[#000000] hover:bg-gray-100 transition-all duration-200 ease-in-out rounded-md",
+        "p-3 text-sm text-[#000000] hover:bg-gray-100 transition-all ease-in-out rounded-md",
     },
     {
       ref: "جميع الاقسام",
       href: "/category",
       className:
-        "p-3 text-sm text-[#000000] hover:bg-gray-100 transition-all duration-200 ease-in-out rounded-md",
+        "p-3 text-sm text-[#000000] hover:bg-gray-100 transition-all ease-in-out rounded-md",
     },
     {
       ref: "تسجيل الدخول",
       href: "/auth/login",
       className:
-        "text-sm text-[#fff] bg-[#000] p-3 rounded-md hover:bg-gray-500 transition-all duration-200 ease-in-out",
+        "text-sm text-[#fff] bg-[#000] p-3 rounded-md hover:bg-gray-500 transition-all ease-in-out",
     },
   ];
 
@@ -48,7 +48,9 @@ export default function Navbar() {
       <div className="mx-auto flex justify-between items-center">
         <Link href="/">
           {/* <Image src={logo} className="w-10 h-10" alt="Alf-Dinar" /> */}
-          <h1 className="text-2xl font-bold text-gray-900 bold">Alfdinar</h1>
+          <h1 className="text-2xl font-bold text-gray-900 bold direction-center">
+            Alfdinar
+          </h1>
         </Link>
         <div className="hidden md:flex space-x-4">
           {Links.map((link, idx) => (
@@ -56,10 +58,10 @@ export default function Navbar() {
               <Link
                 type="button"
                 data-twe-ripple-init
-                data-twe-ripple-color="light"
+                data-twe-ripple-color="dark"
                 key={idx + Math.random() * 1000}
                 href={link.href}
-                className={link.className}
+                className={`${link.className} shadow-primary-3 transition duration-200 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2`}
               >
                 {link.ref}
               </Link>
@@ -105,6 +107,9 @@ export default function Navbar() {
           {Links.map((link, idx) => (
             <>
               <Link
+                type="button"
+                data-twe-ripple-init
+                data-twe-ripple-color="light"
                 key={idx + Math.random() * 1000}
                 href={link.href}
                 onClick={() =>
@@ -112,7 +117,7 @@ export default function Navbar() {
                     setIsOpen(!isOpen);
                   }, 400)
                 }
-                className={`${link.className} block w-full text-center`}
+                className={`${link.className} block w-full text-center shadow-primary-3 transition duration-200 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2`}
               >
                 {link.ref}
               </Link>
