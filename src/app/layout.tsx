@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import { Noto_Kufi_Arabic } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/ui/navbar";
 import { StoreProvider } from "@/store/storeProvider";
 
-const inter = Inter({ subsets: ["latin"] });
 const noto = Noto_Kufi_Arabic({ subsets: ["arabic"] });
 
 export const metadata: Metadata = {
@@ -20,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <StoreProvider>
-      <html lang="en">
+      <html>
         <body className={`${noto.className} mt-[6rem]`}>
           <Navbar />
           {children}

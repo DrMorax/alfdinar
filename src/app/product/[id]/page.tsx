@@ -7,7 +7,7 @@ export default async function Page({ params }: { params: { id: string } }) {
   return (
     <div>
       {product?.map((item) => (
-        <h1>{item?.title}</h1>
+        <h1 key={item.id}>{item?.title}</h1>
       ))}
     </div>
   );
