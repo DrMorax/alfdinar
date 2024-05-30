@@ -59,7 +59,7 @@ export default function Navbar() {
                 type="button"
                 data-twe-ripple-init
                 data-twe-ripple-color="dark"
-                key={idx + Math.random() * 1000}
+                key={idx}
                 href={link.href}
                 className={`${link.className} shadow-primary-3 transition duration-200 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2`}
               >
@@ -110,7 +110,7 @@ export default function Navbar() {
                 type="button"
                 data-twe-ripple-init
                 data-twe-ripple-color="light"
-                key={idx + Math.random() * 1000}
+                key={idx}
                 href={link.href}
                 onClick={() =>
                   setTimeout(() => {

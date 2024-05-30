@@ -16,7 +16,7 @@ export default function EditProduct(props: any) {
   return (
     <>
       <Button
-        variant={"warning"}
+        variant={"default"}
         className="w-[50%] flex-start"
         onClick={() => handleDelete()}
       >

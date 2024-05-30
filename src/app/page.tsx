@@ -23,7 +23,7 @@ export default async function Page() {
           <>
             <Products
               link={`/product/${product.id}`}
-              key={idx}
+              key={product.id}
               title={product.title}
               imageurl={product.imageurl}
               date={formatedDate}
@@ -32,7 +32,6 @@ export default async function Page() {
           </>
         );
       })}
-      <Button size="lg">Hello</Button>
     </div>
   );
 }
