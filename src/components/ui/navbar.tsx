@@ -1,9 +1,5 @@
 "use client";
 import Link from "next/link";
-import Image from "next/image";
-import React, { useEffect, useState } from "react";
-import logo from "@/assets/images/logo.png";
-import { getUserOnClient } from "@/app/utils/supabase/client";
 import { CartIcon } from "@/assets/icons/cart";
 import { HomeIcon } from "@/assets/icons/home";
 import { CategoryIcon } from "@/assets/icons/category";
@@ -33,48 +29,12 @@ export default function Navbar(props: { auth: null | "authenticated" }) {
       className: "p-2 hover:bg-gray-100 transition-all ease-in-out rounded-md",
     },
     {
-      ref: "تسجيل الدخول",
-      href: "/auth/login",
-      className: `${
-        props.auth === "authenticated" ? "hidden" : ""
-      } text-sm text-[#fff] bg-indigo-600 p-2 rounded-md hover:bg-indigo-400 transition-all ease-in-out`,
-    },
-    {
       ref: <UserIcon />,
-      href: "/profile",
-      className: `${
-        props.auth === "authenticated" ? "" : "hidden"
-      } bg-indigo-600 p-2 rounded-md hover:bg-indigo-400 transition-all ease-in-out`,
+      href: `${props.auth === "authenticated" ? "/profile" : "/auth/login"}`,
+      className:
+        "bg-indigo-600 p-2 rounded-md hover:bg-indigo-400 transition-all ease-in-out",
     },
   ];
-
-  const MenuIcon = () => {
-    return (
-      <svg
-        className="w-8 h-8"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        {isOpen ? (
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M6 18L18 6M6 6l12 12"
-          />
-        ) : (
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M4 6h16M4 12h16m-7 6h7"
-          />
-        )}
-      </svg>
-    );
-  };
 
   return (
     <nav className="bg-[#ffffffcc] backdrop-blur-sm p-4 fixed bottom-0 md:top-0 md:bottom-auto shadow-sm w-full z-10">
@@ -84,7 +44,7 @@ export default function Navbar(props: { auth: null | "authenticated" }) {
             Alfdinar
           </h1>
         </Link>
-        <div className="flex space-x-2 order-1">
+        <div className="flex space-x-4 order-1">
           {Links.map((link, idx) => (
             <>
               <Link
