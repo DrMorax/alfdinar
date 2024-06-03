@@ -38,7 +38,11 @@ export default function Navbar(props: { auth: "anonymous" | "authenticated" }) {
       className: "p-2 hover:bg-gray-100 transition-all ease-in rounded-md",
     },
     {
-      ref: <UserIcon fill={activePath === "/profile"} />,
+      ref: (
+        <UserIcon
+          fill={activePath === "/profile" || activePath === "/auth/login"}
+        />
+      ),
       href: `${props.auth === "authenticated" ? "/profile" : "/auth/login"}`,
       className: "p-2 hover:bg-gray-100 transition-all ease-in rounded-md",
     },
