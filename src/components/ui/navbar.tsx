@@ -5,34 +5,42 @@ import { HomeIcon } from "@/assets/icons/home";
 import { CategoryIcon } from "@/assets/icons/category";
 import { UserIcon } from "@/assets/icons/user";
 import { SearchIcon } from "@/assets/icons/search";
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 export default function Navbar(props: { auth: "anonymous" | "authenticated" }) {
+  const [activePath, setActivePath] = useState("");
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setActivePath(pathname as string);
+  }, [pathname]);
+
   const Links = [
     {
-      ref: <HomeIcon />,
+      ref: <HomeIcon fill={activePath === "/"} />,
       href: "/",
-      className: "p-2 hover:bg-gray-100 transition-all ease-in-out rounded-md",
+      className: "p-2 hover:bg-gray-100 transition-all ease-in rounded-md",
     },
     {
-      ref: <SearchIcon />,
+      ref: <SearchIcon fill={activePath === "/search"} />,
       href: "/search",
-      className: "p-2 hover:bg-gray-100 transition-all ease-in-out rounded-md",
+      className: "p-2 hover:bg-gray-100 transition-all ease-in rounded-md",
     },
     {
-      ref: <CartIcon w="32" h="32" color="black" />,
+      ref: <CartIcon fill={activePath === "/cart"} />,
       href: "/cart",
-      className: "p-2 hover:bg-gray-100 transition-all ease-in-out rounded-md",
+      className: "p-2 hover:bg-gray-100 transition-all ease-in rounded-md",
     },
     {
-      ref: <CategoryIcon />,
+      ref: <CategoryIcon fill={activePath === "/category"} />,
       href: "/category",
-      className: "p-2 hover:bg-gray-100 transition-all ease-in-out rounded-md",
+      className: "p-2 hover:bg-gray-100 transition-all ease-in rounded-md",
     },
     {
-      ref: <UserIcon />,
+      ref: <UserIcon fill={activePath === "/profile"} />,
       href: `${props.auth === "authenticated" ? "/profile" : "/auth/login"}`,
-      className:
-        "bg-indigo-600 p-2 rounded-md hover:bg-indigo-400 transition-all ease-in-out",
+      className: "p-2 hover:bg-gray-100 transition-all ease-in rounded-md",
     },
   ];
 
