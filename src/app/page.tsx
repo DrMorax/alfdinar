@@ -3,14 +3,9 @@ import { getProducts } from "../lib/actions";
 
 import { createClient } from "./utils/supabase/server";
 import { Button } from "@/components/ui/button";
+import { useSelector } from "react-redux";
 
 export default async function Page() {
-  // const supabase = createClient();
-  // const { data, error } = await supabase.auth.getUser();
-  // let user;
-  // if (!error && data?.user) {
-  //   user = data.user.id;
-  // }
   const products = await getProducts(10);
   return (
     <div

@@ -58,7 +58,7 @@ export default function LoginPage() {
           name="email"
           type="email"
           required
-          className="w-full py-2 px-3 rounded-md border border-gray-300 focus:outline-none focus:border-indigo-500 focus:ring focus:ring-indigo-200"
+          className="w-full py-2 px-3 rounded-md border border-gray-300 focus:outline-none focus:border-gray-500 focus:ring focus:ring-gray-200"
           onChange={clearError}
         />
       </div>
@@ -72,7 +72,7 @@ export default function LoginPage() {
           name="password"
           type="password"
           required
-          className="w-full py-2 px-3 rounded-md border border-gray-300 focus:outline-none focus:border-indigo-500 focus:ring focus:ring-indigo-200"
+          className="w-full py-2 px-3 rounded-md border border-gray-300 focus:outline-none focus:border-gray-500 focus:ring focus:ring-gray-200"
           onChange={clearError}
         />
       </div>
@@ -84,7 +84,7 @@ export default function LoginPage() {
       <div className="mb-6">
         <button
           type="submit"
-          className="w-full bg-indigo-500 text-white py-2 px-4 rounded-md hover:bg-indigo-600 focus:outline-none focus:ring focus:ring-indigo-200"
+          className="w-full bg-indigo-600 text-white hover:bg-indigo-400 transition-all ease-in-out py-2 px-4 rounded-md focus:outline-none focus:ring focus:ring-gray-200"
         >
           تسجيل الدخول
         </button>

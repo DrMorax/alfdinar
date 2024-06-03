@@ -1,4 +1,5 @@
 import { getProductById } from "@/lib/actions";
+import Details from "@/components/ui/product/details";
 
 export default async function Page({ params }: { params: { id: string } }) {
   const id = params.id;
@@ -7,7 +8,14 @@ export default async function Page({ params }: { params: { id: string } }) {
   return (
     <div>
       {product?.map((item) => (
-        <h1 key={item.id}>{item?.title}</h1>
+        <Details
+          productId={item.id}
+          imageurl={item.imageurl}
+          title={item.title}
+          description={item.description}
+          category="Accessories"
+          sub_category="school-accessories"
+        />
       ))}
     </div>
   );

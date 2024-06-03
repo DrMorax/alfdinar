@@ -1,5 +1,4 @@
-import DeleteProduct from "./delete-button";
-import EditProduct from "./edit-button";
+import { DeleteProduct, EditProduct } from "./buttons";
 
 export const Products = (props: any) => {
   return (

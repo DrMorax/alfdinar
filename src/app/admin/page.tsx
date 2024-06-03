@@ -1,4 +1,3 @@
-import DeleteProduct from "@/components/ui/dashboard/delete-button";
 import { Products } from "@/components/ui/dashboard/products";
 import { ProductsSkeleton } from "@/components/ui/skeleton/dashboard/products";
 import { getProducts } from "@/lib/actions";

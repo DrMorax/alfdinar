@@ -1,6 +1,6 @@
 "use client";
 
-import { decrement, increment } from "@/store/slice";
+import { decrement, increment } from "@/store/counter-slice";
 import type { RootState } from "@/store/store";
 import { useDispatch, useSelector } from "react-redux";
 

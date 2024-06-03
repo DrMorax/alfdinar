@@ -1,6 +1,7 @@
 // Type definitions
 // types.ts
 export type Product = {
+  id: number;
   title: string;
   description: string;
   category: string;
