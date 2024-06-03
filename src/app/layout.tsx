@@ -29,7 +29,7 @@ export default async function RootLayout({
   return (
     <StoreProvider>
       <html>
-        <body className={`${noto.className} md:mt-[5rem]`}>
+        <body className={`${noto.className} mb-[4rem] md:mt-[5rem]`}>
           <Navbar auth={user ? "authenticated" : "anonymous"} />
           {children}
         </body>
