@@ -139,13 +139,51 @@ export async function addToCart(id: string) {
   cart_id = cart_id[0].cart_id;
 
   try {
-    const product = await sql`
+    const checkProduct = await sql`
+    select * from cart_items
+    where product_id = ${id}`;
+    let product;
+    if (checkProduct.length === 0) {
+      product = await sql`
       insert into cart_items(cart_id, product_id, price, quantity) 
       values (${cart_id as any}, ${id}, 1000, 1);
     `;
+    } else {
+      product = await sql`
+      update cart_items
+      set quantity = quantity + 1
+      where product_id = ${id};
+    `;
+    }
     return "success";
   } catch (e) {
     console.log("Error adding to cart: ", e);
     throw e;
   }
+}
+
+export async function getCartItems(id: string) {
+  const cart_id = await sql`
+  select cart_id from carts
+  where user_id = ${id};`;
+
+  const cart_items = await sql`
+  select product_id from cart_items
+  where cart_id = ${cart_id[0].cart_id};`;
+
+  const product_ids = cart_items.map((item) => item.product_id);
+
+  const products = await sql`
+  select
+    products.id,
+    products.title,
+    products.description,
+    products.imageurl,
+    cart_items.quantity,
+    cart_items.price
+  from products
+  inner join cart_items on cart_items.product_id = products.id
+  where cart_items.product_id = ANY(${product_ids});`;
+
+  return products;
 }

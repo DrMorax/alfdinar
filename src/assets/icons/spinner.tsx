@@ -1,9 +1,9 @@
-export const Spinner = () => {
+export const Spinner = (props: { w: string; h: string }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="1.5rem"
-      height="1.5rem"
+      width={`${props.w ? props.w : "1.5rem"}`}
+      height={`${props.h ? props.h : "1.5rem"}`}
       viewBox="0 0 24 24"
     >
       <path

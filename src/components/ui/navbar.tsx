@@ -49,7 +49,7 @@ export default function Navbar(props: { auth: "anonymous" | "authenticated" }) {
   ];
 
   return (
-    <nav className="bg-[#ffffffcc] backdrop-blur-sm p-4 fixed bottom-0 md:top-0 md:bottom-auto shadow-sm w-full z-10">
+    <nav className="bg-[#ffffffcc] backdrop-blur-sm p-2 fixed bottom-0 md:top-0 md:bottom-auto shadow-sm w-full z-10">
       <div className="flex md:justify-between justify-evenly">
         <Link href="/" className="md:block hidden">
           <h1 className="mt-2 text-3xl font-bold text-gray-900 bold direction-end">

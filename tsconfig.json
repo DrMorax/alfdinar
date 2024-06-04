@@ -32,7 +32,8 @@
     "src/app/middleware.ts",
     "src/app/auth/login/actions.ts",
     "src/app/auth/login/page.tsx",
-    "src/app/admin/loading.js"
+    "src/app/admin/loading.js",
+    "src/app/cart/loading.js"
   ],
   "exclude": ["node_modules"]
 }
