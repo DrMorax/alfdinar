@@ -21,11 +21,13 @@ export const AddToCartButton = (props: { id: string }) => {
       const cartItem = await addToCart(props.id);
       setCartItem({ cartItem });
       setCart({ ...cart, cartItem });
-      toast.toast({
-        title: "نجاح",
-        description: "تم اضافة المنتج للسلة بنجاح. يمكنك متابعة التسوق",
-        variant: "success",
-      });
+      if (cartItem === "success") {
+        toast.toast({
+          title: "نجاح",
+          description: "تم اضافة المنتج للسلة بنجاح. يمكنك متابعة التسوق",
+          variant: "success",
+        });
+      }
     } catch (error) {
       setError(true);
 
