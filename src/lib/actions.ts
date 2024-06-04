@@ -2,14 +2,16 @@
 import { revalidatePath } from "next/cache";
 import sql from "../../db";
 import { createClient } from "@/app/utils/supabase/server";
+import type { Row } from "postgres";
+import { redirect } from "next/navigation";
 
 export async function getTodos() {
   try {
     const todos = await sql`
-    select *
-    from todos
+    select id
+    from auth.users
+    where id = user_id
   `;
-
     return todos;
   } catch (e) {
     console.log("Error fetching todos: ", e);
@@ -115,5 +117,35 @@ export async function getProfile(id: string) {
     return user;
   } catch (e) {
     console.error(`Error fetching user: ${e}`);
+  }
+}
+
+export async function addToCart(id: string) {
+  let user;
+  const supabase = createClient();
+  const { data, error } = await supabase.auth.getUser();
+  if (data && !error) {
+    user = data.user;
+  } else {
+    redirect("/auth/login");
+  }
+
+  let cart_id: Row[];
+  cart_id = await sql`select cart_id from carts where user_id = ${user.id};`;
+
+  if (cart_id.length === 0) {
+    cart_id = await sql`insert into carts(user_id) values (${user.id});`;
+  }
+  cart_id = cart_id[0].cart_id;
+
+  try {
+    const product = await sql`
+      insert into cart_items(cart_id, product_id, price, quantity) 
+      values (${cart_id as any}, ${id}, 1000, 1);
+    `;
+    return "success";
+  } catch (e) {
+    console.log("Error adding to cart: ", e);
+    throw e;
   }
 }

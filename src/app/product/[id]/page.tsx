@@ -10,7 +10,7 @@ export default async function Page({ params }: { params: { id: string } }) {
       {product?.map((item) => (
         <Details
           key={item.id}
-          productId={item.id}
+          productId={id}
           imageurl={item.imageurl}
           title={item.title}
           description={item.description}

@@ -5,6 +5,7 @@ import Navbar from "@/components/ui/navbar";
 import { StoreProvider } from "@/store/storeProvider";
 import { useDispatch } from "react-redux";
 import { createClient } from "./utils/supabase/server";
+import { Toaster } from "@/components/ui/toaster";
 
 const noto = Noto_Kufi_Arabic({ subsets: ["arabic"] });
 
@@ -32,6 +33,7 @@ export default async function RootLayout({
         <body className={`${noto.className} mb-[4rem] md:mt-[5rem]`}>
           <Navbar auth={user ? "authenticated" : "anonymous"} />
           {children}
+          <Toaster />
         </body>
       </html>
     </StoreProvider>
