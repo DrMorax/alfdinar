@@ -53,7 +53,7 @@ export const AddToCartButton = (props: { id: string }) => {
         disabled:bg-indigo-50 group py-4 px-5 rounded-full bg-indigo-100 font-semibold text-lg w-full flex items-center justify-center gap-2 transition-all duration-500 hover:bg-indigo-100`}
     >
       {isLoading ? (
-        <Spinner />
+        <Spinner w="1.5rem" h="1.5rem" />
       ) : (
         <svg
           className={`stroke-indigo-600 ${error ? "hidden" : ""}`}
