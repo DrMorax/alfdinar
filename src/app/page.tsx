@@ -1,8 +1,5 @@
 import { Products } from "@/components/ui/dashboard/products";
-import { getProducts, getTodos } from "../lib/actions";
-
-import { createClient } from "./utils/supabase/server";
-import { Button } from "@/components/ui/button";
+import { getProducts } from "../lib/actions";
 
 export default async function Page() {
   const products = await getProducts(10);
