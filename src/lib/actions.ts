@@ -120,7 +120,7 @@ export async function getProfile(id: string) {
   }
 }
 
-export async function addToCart(id: string) {
+export async function checkCart() {
   let user;
   const supabase = createClient();
   const { data, error } = await supabase.auth.getUser();
@@ -138,10 +138,16 @@ export async function addToCart(id: string) {
   }
   cart_id = cart_id[0].cart_id;
 
+  return cart_id;
+}
+
+export async function addToCart(id: string) {
+  const cart_id = await checkCart();
   try {
     const checkProduct = await sql`
     select * from cart_items
-    where product_id = ${id}`;
+    where product_id = ${id}
+    AND cart_id = ${cart_id as any};`;
     let product;
     if (checkProduct.length === 0) {
       product = await sql`
@@ -152,7 +158,8 @@ export async function addToCart(id: string) {
       product = await sql`
       update cart_items
       set quantity = quantity + 1
-      where product_id = ${id};
+      where product_id = ${id}
+      AND cart_id = ${cart_id as any};
     `;
     }
     return "success";
@@ -163,13 +170,11 @@ export async function addToCart(id: string) {
 }
 
 export async function getCartItems(id: string) {
-  const cart_id = await sql`
-  select cart_id from carts
-  where user_id = ${id};`;
+  const cart_id = await checkCart();
 
   const cart_items = await sql`
   select product_id from cart_items
-  where cart_id = ${cart_id[0].cart_id};`;
+  where cart_id = ${cart_id as any};`;
 
   const product_ids = cart_items.map((item) => item.product_id);
 
@@ -183,7 +188,8 @@ export async function getCartItems(id: string) {
     cart_items.price
   from products
   inner join cart_items on cart_items.product_id = products.id
-  where cart_items.product_id = ANY(${product_ids});`;
+  where cart_items.cart_id = ${cart_id as any}
+  AND cart_items.product_id = ANY(${product_ids});`;
 
   return products;
 }
