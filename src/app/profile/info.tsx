@@ -2,7 +2,6 @@
 import { type User } from "@supabase/supabase-js";
 import { createClient } from "../utils/supabase/client";
 import { revalidatePath } from "next/cache";
-import { useRouter } from "next/router";
 
 export default function Info({ user }: { user: User | null }) {
   const handleClick = async () => {
@@ -11,9 +10,7 @@ export default function Info({ user }: { user: User | null }) {
     if (error) {
       console.log(error);
     }
-    const router = useRouter();
     revalidatePath("/");
-    router.push("/");
   };
   return (
     <div>
