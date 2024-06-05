@@ -5,19 +5,6 @@ import { createClient } from "@/app/utils/supabase/server";
 import type { Row } from "postgres";
 import { redirect } from "next/navigation";
 
-export async function getTodos() {
-  try {
-    const todos = await sql`
-    select id
-    from auth.users
-    where id = user_id
-  `;
-    return todos;
-  } catch (e) {
-    console.log("Error fetching todos: ", e);
-  }
-}
-
 export async function getProducts(limit: number) {
   try {
     const products = await sql`
