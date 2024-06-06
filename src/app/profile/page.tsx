@@ -1,17 +1,20 @@
 import Info from "./info";
 import { createClient } from "../utils/supabase/server";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
+const supabase = createClient();
 export default async function Page() {
-  const supabase = createClient();
-
   const {
     data: { user },
     error,
   } = await supabase.auth.getUser();
   if (error || !user) {
-    redirect("/login");
+    redirect("/auth/login");
   }
-
-  return <Info user={user} />;
+  return (
+    <>
+      <Info user={user} />
+    </>
+  );
 }

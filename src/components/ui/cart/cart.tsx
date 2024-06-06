@@ -35,7 +35,7 @@ export default function Cart(props: {
           <Counter quantity={props.quantity} />
           <div className="flex justify-between col-span-9">
             <h6 className="pt-3 text-indigo-600 font-manrope font-bold text-md sm:text-xl leading-9 text-right ml-2">
-              {props.price * props.quantity} IQD
+              {(props.price * props.quantity) / 1000},000 IQD
             </h6>
 
             <button className="rounded-full group flex items-center justify-center focus-within:outline-red-500">

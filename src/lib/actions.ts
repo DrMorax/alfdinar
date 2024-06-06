@@ -180,3 +180,39 @@ export async function getCartItems(id: string) {
 
   return products;
 }
+
+export async function makeOrder(
+  cart: { productId: string; quantity: number }[],
+  total: number
+) {
+  let user;
+  const supabase = createClient();
+  const { data, error } = await supabase.auth.getUser();
+  if (data && !error) {
+    user = data.user;
+  } else {
+    redirect("/auth/login");
+  }
+
+  const order = await sql`
+  insert into orders(user_id, total_amount)
+  values (${user.id}, ${total});`;
+
+  let order_id = await sql`
+  select order_id from orders
+  where user_id = ${user.id}
+  limit 1;`;
+
+  order_id = order_id[0].order_id;
+
+  let i;
+  for (i = 0; i < cart.length; i++) {
+    console.log(cart[0]);
+    let order_items = await sql`
+    insert into order_items(order_id, product_id, quantity)
+    values (${order_id as any}, ${cart[i].productId}, ${cart[i].quantity});
+  `;
+  }
+
+  const cart_id = await checkCart();
+}

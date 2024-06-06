@@ -30,7 +30,9 @@ export default async function RootLayout({
   return (
     <StoreProvider>
       <html>
-        <body className={`${noto.className} mb-[4rem] md:mt-[4rem]`}>
+        <body
+          className={`${noto.className} mb-[4rem] mt-[2.5rem] md:mt-[4rem]`}
+        >
           <Navbar auth={user ? "authenticated" : "anonymous"} />
           {children}
           <Toaster />
