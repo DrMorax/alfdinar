@@ -1,7 +1,6 @@
 import Info from "./info";
 import { createClient } from "../utils/supabase/server";
 import { redirect } from "next/navigation";
-import { revalidatePath } from "next/cache";
 
 const supabase = createClient();
 export default async function Page() {
