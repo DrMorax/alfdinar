@@ -16,7 +16,7 @@ export default function Navbar(props: { auth: "anonymous" | "authenticated" }) {
     setActivePath(pathname as string);
   }, [pathname]);
 
-  const Links = [
+  const Links1 = [
     {
       name: " الرئيسية",
       ref: <HomeIcon fill={activePath === "/"} />,
@@ -38,6 +38,9 @@ export default function Navbar(props: { auth: "anonymous" | "authenticated" }) {
       className:
         "p-2 hover:bg-gray-100 transition-all ease-in rounded-md w-[64px] grid col-span-12 transition duration-200 ease-in-out hover:bg-primary-accent-300 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 items-center justify-center",
     },
+  ];
+
+  const Links2 = [
     {
       name: "السلة",
       ref: <CartIcon fill={activePath === "/cart"} />,
@@ -68,9 +71,29 @@ export default function Navbar(props: { auth: "anonymous" | "authenticated" }) {
           Something
         </h1>
       </Link>
-      <nav className="bg-[#ffffffcc] backdrop-blur-sm p-1 md:p-2 fixed bottom-0 md:top-0 md:bottom-auto shadow-sm w-full z-10">
+      <nav className="flex md:justify-between justify-center bg-[#ffffffcc] backdrop-blur-sm p-1 md:p-2 fixed bottom-0 md:top-0 md:bottom-auto shadow-sm w-full z-10">
+        <div className="hidden md:block w-[136px]"></div>
         <div className="flex justify-center gap-0 md:gap-2 md:pr-2 text-center">
-          {Links.map((link, idx) => (
+          {Links1.map((link, idx) => (
+            <>
+              <Link
+                type="button"
+                data-twe-ripple-init
+                data-twe-ripple-color="dark"
+                key={idx}
+                href={link.href}
+                className={`${link.className}`}
+              >
+                <span className="text-center justify-self-center">
+                  {link.ref}
+                </span>
+                <p className="text-[10px] text-center">{link.name}</p>
+              </Link>
+            </>
+          ))}
+        </div>
+        <div className="flex md:justify-center justify-end gap-0 md:gap-2 text-center">
+          {Links2.map((link, idx) => (
             <>
               <Link
                 type="button"
