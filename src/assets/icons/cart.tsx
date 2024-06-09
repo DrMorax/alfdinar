@@ -2,8 +2,8 @@ export const CartIcon = (props: { fill: boolean }) => {
   return (
     <svg
       className="stroke-indigo-600 "
-      width="36"
-      height="36"
+      width="32"
+      height="32"
       viewBox="0 0 22 22"
       fill={props.fill === true ? "#000" : "none"}
       xmlns="http://www.w3.org/2000/svg"
