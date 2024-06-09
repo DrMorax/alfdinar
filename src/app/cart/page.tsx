@@ -4,7 +4,7 @@ import { createClient } from "../utils/supabase/server";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import Loading from "./loading";
-import { Checkout } from "./checkout";
+import { Checkout } from "../../components/ui/cart/checkout";
 
 interface CartItem {
   productId: string;
@@ -30,6 +30,7 @@ export default async function Page() {
   const id = data?.user?.id;
 
   const cartItems = await getCartItems(id);
+  console.log(cartItems);
 
   const cartLength = cartItems.length;
 

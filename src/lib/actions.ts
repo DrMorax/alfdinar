@@ -79,16 +79,16 @@ export async function deleteProduct(id: any) {
       console.log("Image URL not found.");
     }
 
-    const product = await sql`
+    const deletedProduct = await sql`
       delete from products
       where id = ${id};`;
 
-    if (!product) {
+    if (!deletedProduct) {
       throw new Error("Product deletion failed");
     }
 
     revalidatePath("/admin");
-    return product;
+    return deletedProduct;
   } catch (e) {
     console.log("Error deleting product: ", e);
     throw e;
@@ -126,6 +126,15 @@ export async function checkCart() {
   cart_id = cart_id[0].cart_id;
 
   return cart_id;
+}
+
+export async function emptyCart() {
+  const cart_id = await checkCart();
+
+  const cart_items = await sql`
+  delete from cart_items
+  where cart_id = ${cart_id as any};`;
+  return cart_items;
 }
 
 export async function addToCart(id: string) {
@@ -201,6 +210,7 @@ export async function makeOrder(
   let order_id = await sql`
   select order_id from orders
   where user_id = ${user.id}
+  order by order_id desc
   limit 1;`;
 
   order_id = order_id[0].order_id;
@@ -214,5 +224,7 @@ export async function makeOrder(
   `;
   }
 
-  const cart_id = await checkCart();
+  const cart_id = await emptyCart();
+  revalidatePath("/cart");
+  return "success";
 }

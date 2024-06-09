@@ -1,7 +1,7 @@
 export const HomeIcon = (props: { fill: boolean }) => (
   <svg
-    width="32"
-    height="32"
+    width="36"
+    height="36"
     viewBox="0 0 24 24"
     fill={props.fill === true ? "#000" : "none"}
     xmlns="http://www.w3.org/2000/svg"

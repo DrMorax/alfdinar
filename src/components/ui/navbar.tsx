@@ -18,21 +18,25 @@ export default function Navbar(props: { auth: "anonymous" | "authenticated" }) {
 
   const Links = [
     {
+      name: " الرئيسية",
       ref: <HomeIcon fill={activePath === "/"} />,
       href: "/",
       className: "p-2 hover:bg-gray-100 transition-all ease-in rounded-md",
     },
     {
+      name: "البحث",
       ref: <SearchIcon fill={activePath === "/search"} />,
       href: "/search",
       className: "p-2 hover:bg-gray-100 transition-all ease-in rounded-md",
     },
     {
+      name: "السلة",
       ref: <CartIcon fill={activePath === "/cart"} />,
       href: "/cart",
       className: "p-2 hover:bg-gray-100 transition-all ease-in rounded-md",
     },
     {
+      name: "الاقسام",
       ref: <CategoryIcon fill={activePath === "/category"} />,
       href: "/category",
       className: "p-2 hover:bg-gray-100 transition-all ease-in rounded-md",
@@ -43,6 +47,7 @@ export default function Navbar(props: { auth: "anonymous" | "authenticated" }) {
           fill={activePath === "/profile" || activePath === "/auth/login"}
         />
       ),
+      name: "حسابك",
       href: `${props.auth === "authenticated" ? "/profile" : "/auth/login"}`,
       className: "p-2 hover:bg-gray-100 transition-all ease-in rounded-md",
     },
@@ -54,28 +59,27 @@ export default function Navbar(props: { auth: "anonymous" | "authenticated" }) {
         href="/"
         className="bg-[#ffffffcc] md:w-[25vw] md:ml-2 md:bg-invisible backdrop-blur-sm md:flex block top-0 p-2 text-center w-full border-1 md:border-none fixed z-20"
       >
-        <h1 className="md:mt-2 md:text-3xl text-xl font-bold text-gray-900 bold md:direction-start">
+        <h1 className="md:mt-4 md:text-3xl text-xl font-bold text-gray-900 bold md:direction-start">
           الف دينار
         </h1>
       </Link>
       <nav className="bg-[#ffffffcc] backdrop-blur-sm p-2 fixed bottom-0 md:top-0 md:bottom-auto shadow-sm w-full z-10">
-        <div className="flex md:justify-end justify-evenly">
-          <div className="flex space-x-4 order-1">
-            {Links.map((link, idx) => (
-              <>
-                <Link
-                  type="button"
-                  data-twe-ripple-init
-                  data-twe-ripple-color="dark"
-                  key={idx}
-                  href={link.href}
-                  className={`${link.className} transition duration-200 ease-in-out hover:bg-primary-accent-300 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0`}
-                >
-                  {link.ref}
-                </Link>
-              </>
-            ))}
-          </div>
+        <div className="flex md:justify-end justify-center gap-0 md:gap-4 md:pr-2  text-center">
+          {Links.map((link, idx) => (
+            <>
+              <Link
+                type="button"
+                data-twe-ripple-init
+                data-twe-ripple-color="dark"
+                key={idx}
+                href={link.href}
+                className={`${link.className} w-[64px] grid col-span-12 transition duration-200 ease-in-out hover:bg-primary-accent-300 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 flex flex-col items-center justify-center`}
+              >
+                <span className="text-center">{link.ref}</span>
+                <p className="text-[10px] text-center">{link.name}</p>
+              </Link>
+            </>
+          ))}
         </div>
       </nav>
     </>
