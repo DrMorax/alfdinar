@@ -18,7 +18,7 @@ export default function Details(props: {
               <img
                 src={props.imageurl}
                 alt={props.title}
-                className="max-lg:mx-auto lg:ml-auto h-full"
+                className="max-lg:mx-auto lg:ml-auto h-full rounded shadow"
               />
             </div>
           </div>

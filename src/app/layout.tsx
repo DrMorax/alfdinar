@@ -3,7 +3,6 @@ import { Noto_Kufi_Arabic } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/ui/navbar";
 import { StoreProvider } from "@/store/storeProvider";
-import { useDispatch } from "react-redux";
 import { createClient } from "./utils/supabase/server";
 import { Toaster } from "@/components/ui/toaster";
 
@@ -31,7 +30,7 @@ export default async function RootLayout({
     <StoreProvider>
       <html>
         <body
-          className={`${noto.className} mb-[4rem] mt-[2.5rem] md:mt-[5.2rem]`}
+          className={`${noto.className} mb-[4rem] mt-[4.2rem] md:mt-[5.2rem]`}
         >
           <Navbar auth={user ? "authenticated" : "anonymous"} />
           {children}

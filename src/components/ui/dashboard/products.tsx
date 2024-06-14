@@ -8,7 +8,7 @@ export const Products = (props: any) => {
           <img
             alt={`Image of ${props.title}`}
             src={props.imageurl}
-            className="shrink-0 aspect-square h-[300px] w-[300px] object-cover object-center hover:opacity-75 rounded-lg shadow-xl bg-white"
+            className="shrink-0 aspect-square h-[300px] w-[300px] object-cover object-center hover:opacity-75 rounded-lg shadow-md bg-white"
           />
           <h3 className="text-center mt-4 text-md text-gray-700">
             {props.title}

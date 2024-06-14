@@ -7,6 +7,8 @@ import { UserIcon } from "@/assets/icons/user";
 import { SearchIcon } from "@/assets/icons/search";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import logo from "@/assets/images/logo.png";
+import Image from "next/image";
 
 export default function Navbar(props: { auth: "anonymous" | "authenticated" }) {
   const [activePath, setActivePath] = useState("");
@@ -65,13 +67,13 @@ export default function Navbar(props: { auth: "anonymous" | "authenticated" }) {
     <>
       <Link
         href="/"
-        className="bg-[#ffffffcc] md:w-[25vw] md:ml-2 md:bg-invisible backdrop-blur-sm md:flex block top-0 p-2 text-center w-full border-1 md:border-none fixed z-20"
+        className="bg-[#ffffffcc] backdrop-blur-sm border-b md:w-[25vw] md:ml-2 md:bg-[#ffffff00] md:flex block top-0 text-center w-full md:border-none fixed z-20"
       >
-        <h1 className="md:mt-4 md:text-3xl text-xl font-bold text-gray-900 bold md:direction-start">
-          Something
-        </h1>
+        <div className="flex md:text-3xl md:p-2 text-xl font-bold text-gray-900 bold justify-center md:direction-start">
+          <Image height={64} width={64} src={logo} alt="" />
+        </div>
       </Link>
-      <nav className="flex md:justify-between justify-center bg-[#ffffffcc] backdrop-blur-sm p-1 md:p-2 fixed bottom-0 md:top-0 md:bottom-auto shadow-sm w-full z-10">
+      <nav className="flex md:justify-between justify-center border-t md:border-b bg-[#ffffffcc] backdrop-blur-sm p-1 md:p-2 fixed bottom-0 md:top-0 md:bottom-auto w-full z-10">
         <div className="hidden md:block w-[136px]"></div>
         <div className="flex justify-center gap-0 md:gap-2 md:pr-2 text-center">
           {Links1.map((link, idx) => (

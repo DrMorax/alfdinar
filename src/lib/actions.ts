@@ -1,9 +1,32 @@
 "use server";
-import { revalidatePath } from "next/cache";
 import sql from "../../db";
+import { revalidatePath } from "next/cache";
 import { createClient } from "@/app/utils/supabase/server";
-import type { Row } from "postgres";
 import { redirect } from "next/navigation";
+import type { Row } from "postgres";
+
+export async function getUser() {
+  let user;
+  const supabase = createClient();
+  const { data, error } = await supabase.auth.getUser();
+  if (data && !error) {
+    user = data.user.id;
+    return user;
+  } else {
+    redirect("/auth/login");
+  }
+}
+
+export async function getAdmin() {
+  const userId = await getUser();
+
+  const fetchedAud = await sql`
+  select aud from auth.users
+  where id = ${userId};`;
+
+  const aud = fetchedAud[0]?.aud;
+  return aud;
+}
 
 export async function getProducts(limit: number) {
   try {
@@ -21,39 +44,20 @@ export async function getProducts(limit: number) {
 
 export async function getProductById(id: string) {
   try {
-    const product = await sql`
-      SELECT id, title, description, imageurl
-      FROM products
-      WHERE id = ${id}
-      ORDER BY created_at DESC
-      LIMIT 1
-    `;
+    let product = await sql`
+  SELECT id, title, description, imageurl, quantity, category
+    FROM products
+    WHERE id = ${id}
+    ORDER BY created_at DESC
+    LIMIT 1
+  `;
     return product;
   } catch (e) {
     console.log("Error fetching products: ", e);
   }
 }
 
-export async function addProduct(
-  title: string,
-  description: string,
-  category: string,
-  quantity: number,
-  imageurl: string
-) {
-  try {
-    const product = await sql`
-      insert into products (title, description, category, quantity, imageUrl) 
-      values (${title}, ${description}, ${category}, ${quantity}, ${imageurl});
-    `;
-    return product;
-  } catch (e) {
-    console.log("Error adding product: ", e);
-    throw e;
-  }
-}
-
-export async function deleteProduct(id: any) {
+export async function deleteImage(id: string | number) {
   try {
     const result = await sql`
       select imageurl from products
@@ -78,20 +82,100 @@ export async function deleteProduct(id: any) {
     } else {
       console.log("Image URL not found.");
     }
+  } catch (e) {
+    console.log("Error deleting image: ", e);
+    throw e;
+  }
+}
 
-    const deletedProduct = await sql`
+export async function addProduct(
+  title: string,
+  description: string,
+  category: string,
+  quantity: number,
+  imageurl: string
+) {
+  const aud = await getAdmin();
+  if (aud === "admin") {
+    try {
+      const product = await sql`
+        insert into products (title, description, category, quantity, imageUrl) 
+        values (${title}, ${description}, ${category}, ${quantity}, ${imageurl});
+      `;
+      return product;
+    } catch (e) {
+      console.log("Error adding product: ", e);
+      throw e;
+    }
+  } else {
+    throw new Error("Not authorized");
+  }
+}
+
+export async function updateProduct(product: {
+  id: string | number;
+  title: string;
+  description: string;
+  category: string;
+  quantity: number;
+  imageurl: string;
+}) {
+  const aud = await getAdmin();
+
+  let originalImage =
+    await sql`select imageurl from products where id = ${product.id};`;
+
+  if (aud === "admin") {
+    if (
+      originalImage[0]?.imageurl !== null &&
+      originalImage[0]?.imageurl !== product.imageurl
+    ) {
+      deleteImage(product.id);
+      const newImage =
+        await sql`update products set imageurl = ${product.imageurl} where id = ${product.id};`;
+    }
+
+    try {
+      const updatedProduct = await sql`
+        update products
+        set title = ${product.title},
+        description = ${product.description},
+        category = ${product.category},
+        quantity = ${product.quantity}
+        where id = ${product.id};
+      `;
+      return updatedProduct;
+    } catch (e) {
+      console.log("Error updating product: ", e);
+      throw e;
+    }
+  } else {
+    throw new Error("Not authorized");
+  }
+}
+
+export async function deleteProduct(id: string | number) {
+  const aud = await getAdmin();
+
+  if (aud === "admin") {
+    deleteImage(id);
+    try {
+      const deletedProduct = await sql`
       delete from products
       where id = ${id};`;
 
-    if (!deletedProduct) {
-      throw new Error("Product deletion failed");
-    }
+      if (!deletedProduct) {
+        throw new Error("Product deletion failed");
+      }
 
-    revalidatePath("/admin");
-    return deletedProduct;
-  } catch (e) {
-    console.log("Error deleting product: ", e);
-    throw e;
+      revalidatePath("/admin");
+      return deletedProduct;
+    } catch (e) {
+      console.log("Error deleting product: ", e);
+      throw e;
+    }
+  } else {
+    throw new Error("Not authorized");
   }
 }
 
@@ -108,20 +192,13 @@ export async function getProfile(id: string) {
 }
 
 export async function checkCart() {
-  let user;
-  const supabase = createClient();
-  const { data, error } = await supabase.auth.getUser();
-  if (data && !error) {
-    user = data.user;
-  } else {
-    redirect("/auth/login");
-  }
+  const user = await getUser();
 
   let cart_id: Row[];
-  cart_id = await sql`select cart_id from carts where user_id = ${user.id};`;
+  cart_id = await sql`select cart_id from carts where user_id = ${user};`;
 
   if (cart_id.length === 0) {
-    cart_id = await sql`insert into carts(user_id) values (${user.id});`;
+    cart_id = await sql`insert into carts(user_id) values (${user});`;
   }
   cart_id = cart_id[0].cart_id;
 
@@ -165,7 +242,7 @@ export async function addToCart(id: string) {
   }
 }
 
-export async function getCartItems(id: string) {
+export async function getCartItems() {
   const cart_id = await checkCart();
 
   const cart_items = await sql`
@@ -194,22 +271,15 @@ export async function makeOrder(
   cart: { productId: string; quantity: number }[],
   total: number
 ) {
-  let user;
-  const supabase = createClient();
-  const { data, error } = await supabase.auth.getUser();
-  if (data && !error) {
-    user = data.user;
-  } else {
-    redirect("/auth/login");
-  }
+  const user = await getUser();
 
   const order = await sql`
   insert into orders(user_id, total_amount)
-  values (${user.id}, ${total});`;
+  values (${user}, ${total});`;
 
   let order_id = await sql`
   select order_id from orders
-  where user_id = ${user.id}
+  where user_id = ${user}
   order by order_id desc
   limit 1;`;
 
