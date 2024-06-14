@@ -22,14 +22,7 @@ export default async function Page() {
     quantity: number;
   }
 
-  const supabase = createClient();
-  const { data, error } = await supabase.auth.getUser();
-  if (error || !data?.user) {
-    redirect("/auth/login");
-  }
-  const id = data?.user?.id;
-
-  const cartItems = await getCartItems(id);
+  const cartItems = await getCartItems();
   console.log(cartItems);
 
   const cartLength = cartItems.length;
