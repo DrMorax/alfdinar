@@ -72,7 +72,7 @@ export default function EditProductForm({ initialProduct }: EditProductProps) {
       <button
         type="submit"
         onClick={(e) => {
-          handleSubmit(e as React.FormEvent<HTMLFormElement>);
+          handleSubmit(e as unknown as React.FormEvent<HTMLFormElement>);
         }}
       >
         Submit
