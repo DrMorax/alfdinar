@@ -1,19 +1,10 @@
 import Cart from "@/components/ui/cart/cart";
 import { getCartItems } from "@/lib/actions";
-import { createClient } from "../utils/supabase/server";
-import { redirect } from "next/navigation";
-import { Suspense } from "react";
-import Loading from "./loading";
 import { Checkout } from "../../components/ui/cart/checkout";
 
 interface CartItem {
   productId: string;
   quantity: number;
-}
-
-interface CheckoutProps {
-  cart: CartItem[];
-  total: number;
 }
 
 export default async function Page() {
@@ -41,7 +32,7 @@ export default async function Page() {
   const total = totalPrice.reduce((a, b) => a + b, 0);
 
   return (
-    <Suspense fallback={<Loading />}>
+    <>
       {cartItems.map((item) => (
         <Cart
           key={item.id}
@@ -55,21 +46,21 @@ export default async function Page() {
       ))}
       <div
         dir="rtl"
-        className="lg:px-6 pb-6 border-b border-gray-200 max-lg:max-w-lg max-lg:mx-auto"
+        className="border-b border-gray-200 pb-6 max-lg:mx-auto max-lg:max-w-lg lg:px-6"
       >
-        <h5 className="text-gray-900 font-manrope font-semibold text-2xl leading-9 w-full max-md:text-center max-md:mb-4">
+        <h5 className="font-manrope w-full text-2xl font-semibold leading-9 text-gray-900 max-md:mb-4 max-md:text-center">
           السعر النهائي
         </h5>
-        <h6 className="text-center md:text-right font-manrope font-bold text-3xl lead-10 text-indigo-600">
+        <h6 className="font-manrope lead-10 text-center text-3xl font-bold text-indigo-600 md:text-right">
           IQD {total / 1000},000
         </h6>
       </div>
-      <div className="max-lg:max-w-lg max-lg:mx-auto">
-        <p className="font-normal text-base leading-7 text-gray-500 text-center mb-5 mt-6">
+      <div className="max-lg:mx-auto max-lg:max-w-lg">
+        <p className="mb-5 mt-6 text-center text-base font-normal leading-7 text-gray-500">
           سيتم اضافة رسوم التوصيل في مرحلة تثبيت الطلب
         </p>
         <Checkout cart={cart} total={total} />
       </div>
-    </Suspense>
+    </>
   );
 }

@@ -1,5 +1,5 @@
 // admin/layout.tsx
-import { redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import { createClient } from "../utils/supabase/server";
 
 export default async function Layout({
@@ -9,9 +9,9 @@ export default async function Layout({
 }>) {
   const supabase = createClient();
   const { data, error } = await supabase.auth.getUser();
-  if (!error && data.user?.aud === "admin") {
+  if (!error && data.user?.id === process.env.ADMIN_ID) {
     return <div>{children}</div>;
   } else {
-    redirect("/");
+    notFound();
   }
 }

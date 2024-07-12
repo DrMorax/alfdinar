@@ -55,7 +55,7 @@ export const Checkout: React.FC<CheckoutProps> = ({ cart, total }) => {
       }}
       className={`${error ? "bg-red-500 text-white" : ""} 
       ${
-        isLoading ? "bg-indigo-300" : "bg-indigo-600"
+        isLoading ? "bg-indigo-300 hover:bg-indigo-300" : "bg-indigo-600"
       } flex justify-center gap-2 rounded-full py-4 px-6 text-white font-semibold text-lg w-full text-center transition-all duration-500 hover:bg-indigo-700`}
     >
       {isLoading ? <Spinner w="1.5rem" h="1.5rem" /> : null}

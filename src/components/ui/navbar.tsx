@@ -67,15 +67,15 @@ export default function Navbar(props: { auth: "anonymous" | "authenticated" }) {
     <>
       <Link
         href="/"
-        className="bg-[#ffffffcc] backdrop-blur-sm border-b md:w-[25vw] md:ml-2 md:bg-[#ffffff00] md:flex block top-0 text-center w-full md:border-none fixed z-20"
+        className="fixed top-0 z-20 block w-full border-b bg-[#ffffffcc] text-center backdrop-blur-sm md:ml-2 md:flex md:w-[25vw] md:border-none md:bg-[#ffffff00]"
       >
-        <div className="flex md:text-3xl md:p-2 text-xl font-bold text-gray-900 bold justify-center md:direction-start">
+        <div className="bold md:direction-start flex justify-center text-xl font-bold text-gray-900 md:p-2 md:text-3xl">
           <Image height={64} width={64} src={logo} alt="" />
         </div>
       </Link>
-      <nav className="flex md:justify-between justify-center border-t md:border-b bg-[#ffffffcc] backdrop-blur-sm p-1 md:p-2 fixed bottom-0 md:top-0 md:bottom-auto w-full z-10">
-        <div className="hidden md:block w-[136px]"></div>
-        <div className="flex justify-center gap-0 md:gap-2 md:pr-2 text-center">
+      <nav className="fixed bottom-0 z-10 flex w-full justify-center border-t bg-[#ffffffcc] p-1 backdrop-blur-sm md:bottom-auto md:top-0 md:justify-between md:border-b md:p-2">
+        <div className="hidden w-[136px] md:block"></div>
+        <div className="flex justify-center gap-0 text-center md:gap-2 md:pr-2">
           {Links1.map((link, idx) => (
             <>
               <Link
@@ -86,15 +86,15 @@ export default function Navbar(props: { auth: "anonymous" | "authenticated" }) {
                 href={link.href}
                 className={`${link.className}`}
               >
-                <span className="text-center justify-self-center">
+                <span className="justify-self-center text-center">
                   {link.ref}
                 </span>
-                <p className="text-[10px] text-center">{link.name}</p>
+                <p className="text-center text-[10px]">{link.name}</p>
               </Link>
             </>
           ))}
         </div>
-        <div className="flex md:justify-center justify-end gap-0 md:gap-2 text-center">
+        <div className="flex justify-end gap-0 text-center md:justify-center md:gap-2">
           {Links2.map((link, idx) => (
             <>
               <Link
@@ -105,10 +105,10 @@ export default function Navbar(props: { auth: "anonymous" | "authenticated" }) {
                 href={link.href}
                 className={`${link.className}`}
               >
-                <span className="text-center justify-self-center">
+                <span className="justify-self-center text-center">
                   {link.ref}
                 </span>
-                <p className="text-[10px] text-center">{link.name}</p>
+                <p className="text-center text-[10px]">{link.name}</p>
               </Link>
             </>
           ))}

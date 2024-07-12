@@ -20,12 +20,10 @@ export async function getUser() {
 export async function getAdmin() {
   const userId = await getUser();
 
-  const fetchedAud = await sql`
-  select aud from auth.users
-  where id = ${userId};`;
-
-  const aud = fetchedAud[0]?.aud;
-  return aud;
+  if (userId === process.env.ADMIN_ID) {
+    return "admin";
+  }
+  return "authenticated";
 }
 
 export async function getProducts(limit: number) {
@@ -158,15 +156,11 @@ export async function deleteProduct(id: string | number) {
   const aud = await getAdmin();
 
   if (aud === "admin") {
-    deleteImage(id);
     try {
+      deleteImage(id);
       const deletedProduct = await sql`
       delete from products
       where id = ${id};`;
-
-      if (!deletedProduct) {
-        throw new Error("Product deletion failed");
-      }
 
       revalidatePath("/admin");
       return deletedProduct;
@@ -221,6 +215,7 @@ export async function addToCart(id: string) {
     select * from cart_items
     where product_id = ${id}
     AND cart_id = ${cart_id as any};`;
+
     let product;
     if (checkProduct.length === 0) {
       product = await sql`

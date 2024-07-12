@@ -11,8 +11,8 @@ export default function adminCheck(
       res.status(401).json({ error: `Unauthorized: ${error.message}` });
       return;
     }
-    let role = data.user?.aud;
-    if (role === "admin") {
+    let id = data.user?.id;
+    if (id === process.env.ADMIN_ID) {
       await handler(req, res);
     } else {
       res.status(403).json({ error: "Forbidden: You are not an admin" });
