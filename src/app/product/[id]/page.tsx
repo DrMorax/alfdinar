@@ -1,7 +1,5 @@
 import { getProductById } from "@/lib/actions";
 import Details from "@/components/ui/product/details";
-import { Suspense } from "react";
-import { Spinner } from "@/assets/icons/spinner";
 
 export default async function Page({ params }: { params: { id: string } }) {
   const id = params.id;
